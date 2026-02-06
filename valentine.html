@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine? 💕</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@300;400;500;600;700&family=Satisfy&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #ffd6e8 0%, #ffeef8 50%, #e8d6ff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 50px 40px;
+            box-shadow: 0 20px 60px rgba(255, 182, 193, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 192, 203, 0.1) 0%, transparent 70%);
+            animation: float 15s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-20px, -20px) rotate(180deg); }
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff6b9d;
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.3);
+            font-family: 'Satisfy', cursive;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #c77dff;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            font-weight: 400;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .question-card {
+            background: linear-gradient(135deg, #fff0f6 0%, #f0e6ff 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(199, 125, 255, 0.15);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideIn 0.6s ease forwards;
+        }
+
+        .question-card:nth-child(2) { animation-delay: 0.2s; }
+        .question-card:nth-child(3) { animation-delay: 0.4s; }
+        .question-card:nth-child(4) { animation-delay: 0.6s; }
+
+        @keyframes slideIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .question-card.hidden {
+            display: none;
+        }
+
+        .question-label {
+            color: #ff6b9d;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            display: block;
+            font-weight: 600;
+            font-family: 'Playfair Display', serif;
+        }
+
+        input[type="time"],
+        input[type="date"],
+        input[type="file"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ffc8dd;
+            border-radius: 15px;
+            font-size: 1em;
+            background: white;
+            color: #666;
+            transition: all 0.3s ease;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        input[type="time"]:focus,
+        input[type="date"]:focus {
+            outline: none;
+            border-color: #ff6b9d;
+            box-shadow: 0 0 15px rgba(255, 107, 157, 0.2);
+        }
+
+        /* Special calendar styling for date question */
+        #date-input {
+            background: linear-gradient(135deg, #fff 0%, #fff0f6 100%);
+            border: 3px solid #ffc8dd;
+            font-size: 1.1em;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        #date-input::-webkit-calendar-picker-indicator {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%23ff6b9d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>') no-repeat;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+        }
+
+        .date-hint {
+            text-align: center;
+            color: #c77dff;
+            font-size: 1em;
+            margin-top: 15px;
+            font-family: 'Quicksand', sans-serif;
+            opacity: 0.8;
+            font-weight: 500;
+        }
+
+        input[type="file"] {
+            cursor: pointer;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto 40px;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(255, 107, 157, 0.3);
+        }
+
+        .carousel-wrapper {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 400px;
+            position: relative;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-slide.first-date::after {
+            content: '💕 Our First Date';
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 107, 157, 0.95);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            color: #ff6b9d;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .carousel-nav:hover {
+            background: #ff6b9d;
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-prev {
+            left: 15px;
+        }
+
+        .carousel-next {
+            right: 15px;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ffc8dd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            padding: 0;
+        }
+
+        .carousel-dot.active {
+            background: #ff6b9d;
+            width: 30px;
+            border-radius: 10px;
+        }
+
+        .carousel-dot:hover {
+            background: #ff6b9d;
+        }
+
+        .carousel-counter {
+            text-align: center;
+            color: #c77dff;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            margin-top: 15px;
+            font-size: 0.95em;
+        }
+
+        .uploaded-preview {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .uploaded-preview img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c77dff 100%);
+            color: white;
+        }
+
+        .btn-next:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 157, 0.4);
+        }
+
+        .btn-next:disabled {
+            background: #ddd;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .final-question {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .final-question h2 {
+            color: #ff6b9d;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            line-height: 1.4;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        .final-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ffafcc 100%);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-hell-yes {
+            background: linear-gradient(135deg, #c77dff 0%, #e0aaff 100%);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-no {
+            background: transparent;
+            color: #ddd;
+            border: 2px solid #f0f0f0;
+            font-size: 0.85em;
+            padding: 12px;
+            opacity: 0.4;
+            transition: all 0.3s ease;
+        }
+
+        .btn-no:hover {
+            transform: translateX(-10px);
+            opacity: 0.6;
+            border-color: #ffc8dd;
+            color: #ff6b9d;
+        }
+
+        .btn-yes:hover,
+        .btn-hell-yes:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(255, 107, 157, 0.5);
+        }
+
+        .celebration {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .celebration.show {
+            display: block;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .celebration h2 {
+            color: #ff6b9d;
+            font-size: 3em;
+            margin-bottom: 20px;
+            font-family: 'Satisfy', cursive;
+        }
+
+        .celebration p {
+            color: #c77dff;
+            font-size: 1.5em;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .for-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1em;
+            color: #ff6b9d;
+            font-weight: 600;
+        }
+
+        .nakhra-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, #ff6b9d 0%, #c77dff 100%);
+            color: white;
+            padding: 30px 50px;
+            border-radius: 20px;
+            font-size: 1.8em;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            box-shadow: 0 20px 60px rgba(255, 107, 157, 0.5);
+            z-index: 10000;
+            transition: transform 0.3s ease;
+        }
+
+        .nakhra-message.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 9999;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            animation: fall 4s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes fall {
+            0% {
+                opacity: 1;
+                transform: translateY(-10vh) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+
+        .error-message {
+            color: #ff4757;
+            font-size: 0.9em;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container">
+        <div class="content">
+            <h1>💕 For D 💕</h1>
+            <p class="subtitle">A journey through our love story...</p>
+
+            <div class="carousel-container">
+                <div class="carousel-wrapper" id="carouselWrapper">
+                    <div class="carousel-slide">
+                        <img src="photo1.jpg" alt="Us">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="photo2.jpeg" alt="Us">
+                    </div>
+                    <div class="carousel-slide first-date">
+                        <img src="photo3.jpeg" alt="Our First Date">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="photo4.jpeg" alt="Us">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="photo5.jpeg" alt="Us">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="photo6.png" alt="Us">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="photo7.jpeg" alt="Us">
+                    </div>
+                </div>
+                <button class="carousel-nav carousel-prev" onclick="moveCarousel(-1)">‹</button>
+                <button class="carousel-nav carousel-next" onclick="moveCarousel(1)">›</button>
+            </div>
+            <div class="carousel-dots" id="carouselDots"></div>
+            <div class="carousel-counter" id="carouselCounter">1 / 7</div>
+
+            <!-- Question 1 -->
+            <div class="question-card" id="q1">
+                <label class="question-label">✨ At what time did we fall for each other?</label>
+                <input type="time" id="time-input" required>
+                <p class="error-message" id="error1">Please select a time 💕</p>
+                <button class="btn btn-next" onclick="nextQuestion(1)">Continue →</button>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-card hidden" id="q2">
+                <label class="question-label">💌 On which date was our first date?</label>
+                <input type="date" id="date-input" required>
+                <p class="date-hint">✨ Hint: Look at photo 3 above 💕 ✨</p>
+                <p class="error-message" id="error2">Please select the date 💕</p>
+                <button class="btn btn-next" onclick="nextQuestion(2)">Continue →</button>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-card hidden" id="q3">
+                <label class="question-label">📸 What is <span class="for-name">D's</span> favourite picture of ours from your gallery?</label>
+                <input type="file" id="photo-input" accept="image/*" required>
+                <div class="uploaded-preview" id="preview"></div>
+                <p class="error-message" id="error3">Please upload a photo 💕</p>
+                <button class="btn btn-next" onclick="nextQuestion(3)">Continue →</button>
+            </div>
+
+            <!-- Final Question -->
+            <div class="question-card hidden" id="final">
+                <div class="final-question">
+                    <div id="final-image"></div>
+                    <h2>Will you be my Valentine? 💝</h2>
+                    <div class="final-buttons">
+                        <button class="btn btn-yes" onclick="celebrate('Yes')">Yes 💕</button>
+                        <button class="btn btn-hell-yes" onclick="celebrate('Hell Yessss')">Hell Yessssss! 💖</button>
+                    </div>
+                    <button class="btn btn-no" onclick="showNakhra()">No</button>
+                </div>
+            </div>
+
+            <div class="nakhra-message" id="nakhra">Su che? Nakhra no kar 😏</div>
+
+            <!-- Celebration -->
+            <div class="celebration" id="celebration">
+                <h2>🎉 Yay! 🎉</h2>
+                <p>You've made me the happiest person! 💕</p>
+                <p style="margin-top: 20px; font-size: 1.2em;">Happy Valentine's Day, my love! 🌹</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Carousel functionality
+        let currentSlide = 0;
+        const totalSlides = 7;
+
+        function initCarousel() {
+            const dotsContainer = document.getElementById('carouselDots');
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('button');
+                dot.className = 'carousel-dot';
+                if (i === 0) dot.classList.add('active');
+                dot.onclick = () => goToSlide(i);
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function moveCarousel(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = totalSlides - 1;
+            if (currentSlide >= totalSlides) currentSlide = 0;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const wrapper = document.getElementById('carouselWrapper');
+            wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update dots
+            const dots = document.querySelectorAll('.carousel-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+
+            // Update counter
+            document.getElementById('carouselCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+        }
+
+        // Auto-advance carousel
+        let carouselInterval = setInterval(() => {
+            moveCarousel(1);
+        }, 4000);
+
+        // Pause on hover
+        document.querySelector('.carousel-container').addEventListener('mouseenter', () => {
+            clearInterval(carouselInterval);
+        });
+
+        document.querySelector('.carousel-container').addEventListener('mouseleave', () => {
+            carouselInterval = setInterval(() => {
+                moveCarousel(1);
+            }, 4000);
+        });
+
+        // Initialize carousel on page load
+        window.addEventListener('load', initCarousel);
+
+        // Existing code
+        let uploadedImage = null;
+        let answers = {
+            time: null,
+            date: null,
+            photo: null
+        };
+
+        // Correct answer for Question 2 (October 11, any year)
+        const correctMonth = 9; // October (0-indexed)
+        const correctDay = 11;
+
+        function nextQuestion(current) {
+            const errors = document.querySelectorAll('.error-message');
+            errors.forEach(e => e.classList.remove('show'));
+
+            if (current === 1) {
+                const timeInput = document.getElementById('time-input').value;
+                if (!timeInput) {
+                    document.getElementById('error1').classList.add('show');
+                    return;
+                }
+                answers.time = timeInput;
+                document.getElementById('q1').classList.add('hidden');
+                document.getElementById('q2').classList.remove('hidden');
+            } else if (current === 2) {
+                const dateInput = document.getElementById('date-input').value;
+                if (!dateInput) {
+                    document.getElementById('error2').classList.add('show');
+                    return;
+                }
+                
+                const selectedDate = new Date(dateInput);
+                
+                // Check if the date matches October 11 (any year)
+                if (selectedDate.getMonth() !== correctMonth ||
+                    selectedDate.getDate() !== correctDay) {
+                    
+                    document.getElementById('error2').textContent = "Oops! That's not quite right. Try again 💕";
+                    document.getElementById('error2').classList.add('show');
+                    return;
+                }
+                
+                answers.date = dateInput;
+                document.getElementById('q2').classList.add('hidden');
+                document.getElementById('q3').classList.remove('hidden');
+            } else if (current === 3) {
+                const photoInput = document.getElementById('photo-input');
+                if (!photoInput.files || photoInput.files.length === 0) {
+                    document.getElementById('error3').classList.add('show');
+                    return;
+                }
+                answers.photo = uploadedImage;
+                document.getElementById('q3').classList.add('hidden');
+                showFinalQuestion();
+            }
+        }
+
+        document.getElementById('photo-input').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedImage = e.target.result;
+                    const preview = document.getElementById('preview');
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Our favorite moment">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function showFinalQuestion() {
+            const finalImageDiv = document.getElementById('final-image');
+            if (uploadedImage) {
+                finalImageDiv.innerHTML = `<img src="${uploadedImage}" style="max-width: 100%; max-height: 300px; border-radius: 20px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);">`;
+            }
+            document.getElementById('final').classList.remove('hidden');
+        }
+
+        function celebrate(answer) {
+            document.getElementById('final').classList.add('hidden');
+            document.getElementById('celebration').classList.add('show');
+            createHearts();
+        }
+
+        function showNakhra() {
+            const nakhra = document.getElementById('nakhra');
+            nakhra.classList.add('show');
+            
+            setTimeout(() => {
+                nakhra.classList.remove('show');
+            }, 2000);
+        }
+
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            const heartSymbols = ['❤️', '💕', '💖', '💗', '💝', '💘', '💞'];
+            
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.animationDelay = Math.random() * 2 + 's';
+                    heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                    heartsContainer.appendChild(heart);
+                    
+                    setTimeout(() => heart.remove(), 4000);
+                }, i * 100);
+            }
+        }
+    </script>
+</body>
+</html>
