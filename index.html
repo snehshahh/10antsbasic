@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Be My Valentine? 💕</title>
+    <title>Photo Gallery</title>
+    <meta name="description" content="A collection of memories">
+    <meta property="og:title" content="Photo Gallery">
+    <meta property="og:description" content="A collection of memories">
+    <meta name="twitter:title" content="Photo Gallery">
+    <meta name="twitter:description" content="A collection of memories">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@300;400;500;600;700&family=Satisfy&display=swap" rel="stylesheet">
@@ -34,6 +39,21 @@
             box-shadow: 0 20px 60px rgba(255, 182, 193, 0.4);
             position: relative;
             overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                border-radius: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .subtitle {
+                font-size: 1em;
+            }
         }
 
         .container::before {
@@ -87,6 +107,13 @@
             animation: slideIn 0.6s ease forwards;
         }
 
+        @media (max-width: 768px) {
+            .question-card {
+                padding: 25px 20px;
+                border-radius: 15px;
+            }
+        }
+
         .question-card:nth-child(2) { animation-delay: 0.2s; }
         .question-card:nth-child(3) { animation-delay: 0.4s; }
         .question-card:nth-child(4) { animation-delay: 0.6s; }
@@ -109,6 +136,12 @@
             display: block;
             font-weight: 600;
             font-family: 'Playfair Display', serif;
+        }
+
+        @media (max-width: 768px) {
+            .question-label {
+                font-size: 1.2em;
+            }
         }
 
         input[type="time"],
@@ -173,6 +206,13 @@
             box-shadow: 0 10px 40px rgba(255, 107, 157, 0.3);
         }
 
+        @media (max-width: 768px) {
+            .carousel-container {
+                max-width: 100%;
+                border-radius: 15px;
+            }
+        }
+
         .carousel-wrapper {
             display: flex;
             transition: transform 0.5s ease-in-out;
@@ -184,10 +224,46 @@
             position: relative;
         }
 
+        @media (max-width: 768px) {
+            .carousel-slide {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .carousel-slide {
+                height: 300px;
+            }
+        }
+
         .carousel-slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        .photo-tag {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #ff6b9d;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-size: 0.95em;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
+            border: 2px solid #ffc8dd;
+        }
+
+        @media (max-width: 768px) {
+            .photo-tag {
+                font-size: 0.85em;
+                padding: 6px 14px;
+                top: 15px;
+                right: 15px;
+            }
         }
 
         .carousel-slide.first-date::after {
@@ -205,6 +281,14 @@
             font-weight: 700;
             letter-spacing: 0.5px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .carousel-slide.first-date::after {
+                font-size: 0.95em;
+                padding: 8px 20px;
+                bottom: 15px;
+            }
         }
 
         .carousel-nav {
@@ -227,6 +311,14 @@
             z-index: 10;
         }
 
+        @media (max-width: 768px) {
+            .carousel-nav {
+                width: 38px;
+                height: 38px;
+                font-size: 1.3em;
+            }
+        }
+
         .carousel-nav:hover {
             background: #ff6b9d;
             color: white;
@@ -239,6 +331,16 @@
 
         .carousel-next {
             right: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .carousel-prev {
+                left: 10px;
+            }
+            
+            .carousel-next {
+                right: 10px;
+            }
         }
 
         .carousel-dots {
@@ -334,10 +436,24 @@
             font-weight: 700;
         }
 
+        @media (max-width: 768px) {
+            .final-question h2 {
+                font-size: 2em;
+                margin-bottom: 25px;
+            }
+        }
+
         .final-buttons {
             display: flex;
             gap: 15px;
             margin-top: 30px;
+        }
+
+        @media (max-width: 480px) {
+            .final-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
         }
 
         .btn-yes {
@@ -428,6 +544,23 @@
             transition: transform 0.3s ease;
         }
 
+        @media (max-width: 768px) {
+            .nakhra-message {
+                padding: 25px 35px;
+                font-size: 1.4em;
+                border-radius: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nakhra-message {
+                padding: 20px 25px;
+                font-size: 1.2em;
+                max-width: 80%;
+                text-align: center;
+            }
+        }
+
         .nakhra-message.show {
             transform: translate(-50%, -50%) scale(1);
         }
@@ -479,30 +612,37 @@
     <div class="container">
         <div class="content">
             <h1>💕 For D 💕</h1>
-            <p class="subtitle">A journey through our love story...</p>
+            <p class="subtitle">Before our special date together...</p>
 
             <div class="carousel-container">
                 <div class="carousel-wrapper" id="carouselWrapper">
                     <div class="carousel-slide">
                         <img src="photo1.jpg" alt="Us">
+                        <div class="photo-tag">✨ So Beautiful</div>
                     </div>
                     <div class="carousel-slide">
                         <img src="photo2.jpeg" alt="Us">
+                        <div class="photo-tag">😄 So Funny</div>
                     </div>
                     <div class="carousel-slide first-date">
                         <img src="photo3.jpeg" alt="Our First Date">
+                        <div class="photo-tag">💪 So Brave</div>
                     </div>
                     <div class="carousel-slide">
                         <img src="photo4.jpeg" alt="Us">
+                        <div class="photo-tag">🔥 So Hot</div>
                     </div>
                     <div class="carousel-slide">
                         <img src="photo5.jpeg" alt="Us">
+                        <div class="photo-tag">🌟 So Amazing</div>
                     </div>
                     <div class="carousel-slide">
                         <img src="photo6.png" alt="Us">
+                        <div class="photo-tag">😍 So Cute</div>
                     </div>
                     <div class="carousel-slide">
                         <img src="photo7.jpeg" alt="Us">
+                        <div class="photo-tag">💖 So Perfect</div>
                     </div>
                 </div>
                 <button class="carousel-nav carousel-prev" onclick="moveCarousel(-1)">‹</button>
@@ -541,7 +681,7 @@
             <div class="question-card hidden" id="final">
                 <div class="final-question">
                     <div id="final-image"></div>
-                    <h2>Will you be my Valentine? 💝</h2>
+                    <h2>Will you go on a date with me? 💝</h2>
                     <div class="final-buttons">
                         <button class="btn btn-yes" onclick="celebrate('Yes')">Yes 💕</button>
                         <button class="btn btn-hell-yes" onclick="celebrate('Hell Yessss')">Hell Yessssss! 💖</button>
